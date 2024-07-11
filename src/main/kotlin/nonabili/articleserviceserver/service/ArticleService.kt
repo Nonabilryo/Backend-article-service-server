@@ -25,8 +25,15 @@ import java.util.UUID
 class ArticleService(val articleRepository: ArticleRepository, val categoryRepository: CategoryRepository, val s3UploadService: S3UploadService, val userClient: UserClient, val likeRepository: LikeRepository) {
     fun getSuggestArticle(page: Int): Page<ArticleSuggestResponse> {
         val cal = Calendar.getInstance()
-        cal.add(Calendar.DAY_OF_MONTH, -30)
-        val articles = articleRepository.findArticlesByCreatedAtAfterOrderByLikeDesc(createdAt = cal.time, PageRequest.of(page, 25))
+
+//        cal.add(Calendar.DAY_OF_MONTH, -200)
+//        val articles = articleRepository.findArticlesByCreatedAtAfterOrderByLikeDesc(createdAt = cal.time, PageRequest.of(page, 25))
+
+//        val articles = articleRepository.findArticlesByCreatedAtAfterOrderByLikeDesc2(PageRequest.of(page, 25))
+
+        val articles = articleRepository.findArticlesByCreatedAtAfterOrderByLikeDesc3(PageRequest.of(page, 25))
+
+
         return PageImpl(articles.content.map { ArticleSuggestResponse(
             idx = it.idx.toString(),
             title = it.title,

@@ -12,7 +12,7 @@ data class Article( //todo / put column
     val title: String,
     val writer: UUID,
     val buyer: UUID? = null,
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)  // todo 시발
     @JoinColumn(name = "category_idx")
     val category: Category? = null,
     val description: String,
